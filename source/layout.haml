@@ -1,0 +1,16 @@
+!!!
+%html
+  %head
+    %meta{:charset => "utf-8"}/
+    %meta{:content => "IE=edge,chrome=1", "http-equiv" => "X-UA-Compatible"}/
+    = stylesheet_link_tag "screen.css"
+    = yield_content :head
+  %body{:class => page_classes}
+    #main{:role => "main"}
+      = yield
+    .footer
+      %p 
+        ribbons were made with #{link_to "scss", "http://sass-lang.com/"}, 
+        #{link_to "compass", "http://compass-style.org/"} &amp; love by 
+        #{link_to "@parenteau", "http://michaelparenteau.com"}
+      

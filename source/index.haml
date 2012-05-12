@@ -1,0 +1,25 @@
+- content_for :head do
+  %title Compass Flag Mixin
+
+.container
+  %a.github(href="http://github.com/michaelparenteau/compass-ribbon") source
+  %h1(title="Font: Ribbon, by Dan Gneiding") Ribbons
+  .boxes
+    .box
+      %span.horiz-ribbon some text
+
+    .big.box
+      %span.vert-ribbon.red red
+      %span.vert-ribbon.orange orange
+      %span.vert-ribbon.yellow yellow
+      %span.vert-ribbon.green green
+      %span.vert-ribbon.blue blue
+      %span.vert-ribbon.purple purple
+      %span.vert-ribbon.grey grey
+      %span.vert-ribbon.black black
+
+  %h2 The @mixin &amp; @include
+  %script(src="https://gist.github.com/2665212.js")
+
+  %h2 The HAML
+  %script(src="https://gist.github.com/2665259.js?file=boxes.haml")

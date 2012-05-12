@@ -1,0 +1,250 @@
+/* Compass Ribbon Mixin
+   Author: Michael Parenteau, 2012
+   Author URL: http://michaelparenteau.com
+   twitter: @parenteau
+========================================= */
+
+@import "compass";
+@import "compass/reset";
+@import "compass/css3";
+
+// some colors
+$red: #900;
+$orange: #f90;
+$yellow: #ff0;
+$green: #3c0;
+$blue: #09f;
+$purple: #90f;
+$grey: #ebebeb;
+$black: #000;
+
+// font stuffz
+$sans-serif: "Arial Rounded MT Bold", helvetica, arial, sans-serif;
+@font-face {
+  font-family: ribbon;
+  src: url(/fonts/ribbon.otf);
+}
+
+// this is the magic... enter teh mixin
+@mixin ribbon($color, $ribbon-thickness, $notch-color, $notch-side) {
+  @include background-image(linear-gradient(lighten($color, 20%), darken($color, 10%)));
+  @include inline-block;
+  position: absolute;
+  padding-#{$notch-side}: $ribbon-thickness;
+  @if $notch-side == left {
+    height: $ribbon-thickness;
+    line-height: $ribbon-thickness;
+    right: -2px;
+    padding-right: 10px;
+    text-align: right;
+  } @else if $notch-side == right {
+    height: $ribbon-thickness;
+    line-height: $ribbon-thickness;
+    left: -2px;
+    padding-left: 10px;
+  } @else if $notch-side == bottom {
+    text-align: center;
+    width: $ribbon-thickness;
+    top: -2px;
+    padding-top: 10px;
+  } @else {
+    text-align: center;
+    width: $ribbon-thickness;
+    bottom: -2px;
+    padding-bottom: 10px;
+  }
+  &:before {
+    content: '';
+    display: block;
+    height: 0;
+    width: 0;
+    border-style: solid;
+    border-width: $ribbon-thickness/2;
+    border-color: transparent;
+    border-#{$notch-side}-color: $notch-color;
+    position: absolute;
+    #{$notch-side}: -1px;
+  }
+}
+
+// site structure
+body {
+  background: url(/images/body-bkg.png);
+}
+.container, .footer { 
+  width: 700px;
+  margin: 0 auto;
+  position: relative;
+}
+.boxes {
+  margin-bottom: 40px;
+}
+.github {
+  @include ribbon(darken($blue, 10%), 100px, #ebebeb, bottom);
+  @include box-shadow(1px 0 1px rgba(0,0,0,0.35), inset 1px 0 1px rgba(255,255,255,.35), inset -1px 0 1px rgba(255,255,255,.35));
+  @include transition(all .2s ease-in);
+  @include text-shadow(0 1px 1px rgba(255,255,255, 0.5));
+  font-family: $sans-serif;
+  border: none;
+  border-left: 1px solid darken($blue, 10%);
+  border-right: 1px solid darken($blue, 10%);
+  height: 50px;
+  right: -150px;
+  opacity: .5;
+  color: darken($blue, 10%);
+  &:before {
+    content: '';
+    @include rotate;
+    border: none;
+    width: 170px;
+    height: 170px;
+    bottom: -150px;
+    background: url(/images/body-bkg.png);
+    left: -32px;
+  }
+  &:after {
+    content: '';
+    display: block;
+    width: 53px;
+    height: 53px;
+    background: url(/images/octocat.png) 0 0 no-repeat;
+    top: 35px;
+    left: 23px;
+    position: absolute;
+  }
+  &:hover {
+    opacity: 1;
+  }
+}
+
+h1 {
+  text-align: center;
+  font-size: 150px;
+  font-family: ribbon, helvetica, arial, sans-serif;
+  font-weight: normal;
+  letter-spacing: -1px;
+  color: #fff;
+  padding: 40px 0 40px;
+  text-shadow: 2px 2px 3px rgba(0,0,0,0.15),
+               -2px 2px 3px rgba(0,0,0,0.05),
+               0 1px 2px rgba(0,0,0,0.5), 
+               0 2px 5px rgba(0,0,0,0.25),
+               0 5px 10px rgba(0,0,0,0.15),
+               0 8px 15px rgba(0,0,0,0.1),
+               0 15px 25px rgba(0,0,0,0.1);
+}
+h2 {
+  font-family: $sans-serif;
+  font-size: 18px;
+  text-align: left;
+  margin-bottom: 20px;
+  color: darken($blue, 30%);
+}
+p { 
+  font-size: 14px; 
+  font-family: $sans-serif;
+}
+a {
+  color: $blue;
+  text-decoration: none;
+}
+.gist {
+  @include border-radius(8px);
+  @include box-shadow(0 2px 3px rgba(0,0,0,0.1));
+  background: #ebebeb; 
+  border: 1px solid #ccc;
+  text-align: left;
+  font-family: monospace;
+  overflow: hidden;
+  overflow-x: auto;
+  margin-bottom: 40px;
+  padding-top: 10px;
+  font-size: 13px;
+  line-height: 1.4;
+  border: 1px solid #999;
+  &:last-child {
+    margin-bottom: 20px;
+  };
+}
+.footer {
+  margin-bottom: 20px;
+  color: darken($blue, 30%);
+}
+::selection {
+  background: lighten($purple, 35%);
+}
+
+// The demo stuffz start here
+.boxes {
+  @include box-shadow(inset 0 0 5px rgba(0,0,0,0.25), 0 1px 0 rgba(255,255,255,.35));
+  @include border-radius(8px);
+  padding: 12px;
+}
+// just an element to hold the ribbon
+.box {
+  @include border-radius(8px);
+  @include box-shadow(0 2px 3px rgba(0,0,0,0.1));
+  @include inline-block;
+  width: 168px;
+  height: 100px;
+  background: #ebebeb;
+  border: 1px solid #999;
+  position: relative;
+  margin-right: 10px;
+  &:last-child {
+    margin-right: 0;
+  }
+  &.big { width: 490px; }
+}
+
+// and then the ribbons... we use the magic mixin here.
+.horiz-ribbon {
+  @include ribbon(#548ec1, 40px, #ebebeb, right);
+  @include box-shadow(0px 1px 1px rgba(0,0,0,0.35));
+  top: 10px;
+  color: #fff;
+}
+// in production... I would not do this as it generates 
+// the mixin every time you use it. This is just a demo.
+.vert-ribbon {
+  @include ribbon($red, 50px, #ebebeb, bottom);
+  @include box-shadow(1px 0 1px rgba(0,0,0,0.35));
+  left: 10px;
+  color: #fff;
+  &.red {
+    @include ribbon($red, 50px, #ebebeb, bottom);
+    left: 10px;
+  }
+  &.orange {
+    @include ribbon($orange, 50px, #ebebeb, bottom);
+    left: 70px;
+  }
+  &.yellow {
+    @include ribbon($yellow, 50px, #ebebeb, bottom);
+    left: 130px;
+    color: darken($orange, 20%);
+  }
+  &.green {
+    @include ribbon($green, 50px, #ebebeb, bottom);
+    left: 190px;
+  }
+  &.blue {
+    @include ribbon($blue, 50px, #ebebeb, bottom);
+    left: 250px;
+  }
+  &.purple {
+    @include ribbon($purple, 50px, #ebebeb, bottom);
+    left: 310px;
+  }
+  &.grey {
+    @include ribbon($grey, 50px, #ebebeb, bottom);
+    left: 370px;
+    color: #333;
+  }
+  &.black {
+    @include ribbon($black, 50px, #ebebeb, bottom);
+    left: 430px;
+  }
+}
+
+// Boosh. Now go make something cool with this.
