@@ -1,5 +1,4 @@
 source "http://rubygems.org"
 
-gem "middleman", "~>2.0.15.3"
-gem "middleman-smusher"
-gem "heroku"
+gem "middleman", "~>3.2.2"
+gem "breakpoint", "~>2.4.2"
